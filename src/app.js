@@ -7,10 +7,12 @@ class App {
         this.activateContext = context
         this.statusBarItems = {}
         this.timer = null
+        this.windowActive = !!vscode.window.state.focused
 
         this.init()
 
         context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(() => this.handleConfigChange()))
+        context.subscriptions.push(vscode.window.onDidChangeWindowState(() => this.handleStateChange()))
     }
 
     init() {
@@ -18,6 +20,10 @@ class App {
 
         if(!this.enable){
             this.clean()
+            return
+        }
+
+        if(!this.windowActive){
             return
         }
 
@@ -40,6 +46,16 @@ class App {
     handleConfigChange() {
         this.clean()
         this.init()
+    }
+    handleStateChange() {
+        this.windowActive = !!vscode.window.state.focused
+        this.timer && clearInterval(this.timer)
+        if(this.windowActive){
+            this.fetchData()
+            this.timer = setInterval(() => {
+                this.fetchData()
+            }, this.updateInterval)
+        }
     }
 
     fetchData() {
