@@ -57,12 +57,14 @@
   },
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "node ./node_modules/vscode/bin/test"
+    "test": "node ./node_modules/vscode/bin/test",
+    "release": "standard-version"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.42",
     "@types/node": "^7.0.43",
     "eslint": "^4.11.0",
+    "standard-version": "^9.5.0",
     "typescript": "^2.6.1",
     "vscode": "^1.1.6"
   },
