@@ -39,6 +39,18 @@ const util = {
   getConfigurationBaseURL() {
     const config = vscode.workspace.getConfiguration();
     return config.get('binance-price-watch.url')
+  },
+
+  getConfigurationComparisonPrice() {
+    const config = vscode.workspace.getConfiguration();
+    let list = []
+    let info = config.get('binance-price-watch.comparisonPrice')
+    try {
+      list = JSON.parse(info)
+    } catch (error) {
+       console.error('error',error)
+    }
+    return list
   }
 }
 
