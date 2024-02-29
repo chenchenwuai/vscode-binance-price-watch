@@ -51,6 +51,11 @@
           "default": "https://fapi.binance.com/fapi/v1/ticker/price",
           "format": "uri",
           "description": "Configuring contract base API, (try not to modify)"
+        },
+        "binance-price-watch.comparisonPrice": {
+          "type": "string",
+          "default": "",
+          "description": "Calculate the real-time price and what the profit is for the price you set。\n(direction:up|down)\nexample: \n[{\"symbol\":\"btcusdt\",\"price\":60000,\"leverage\":25,\"direction\":\"up\"}]\n"
         }
       }
     }
@@ -70,6 +75,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bignumber.js": "^9.1.2",
     "open": "^6.4.0"
   },
   "repository": {
