@@ -126,7 +126,7 @@ class App {
         if(find){
             const priceBN = new BigNumber(price);
             const findPriceBN = new BigNumber(find.price);
-            const diff = priceBN.minus(findPriceBN);
+            const diff = priceBN.minus(findPriceBN).abs()
             const isEarning = find.direction === 'up' ? diff.isGreaterThan(0) : diff.isLessThan(0);
             const diffDivFindPrice = diff.dividedBy(findPriceBN);
             const per = diffDivFindPrice.multipliedBy(100).multipliedBy(find.leverage);
