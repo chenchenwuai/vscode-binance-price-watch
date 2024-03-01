@@ -2,9 +2,11 @@ const vscode = require('vscode')
 const axios = require('axios')
 const util = require('./util')
 const { BigNumber } = require('bignumber.js')
+const { v4: uuidv4 } = require('uuid')
 
 class App {
     constructor(context){
+        this.uuid = uuidv4()
         this.activateContext = context
         this.statusBarItems = {}
         this.enable = true
@@ -54,7 +56,17 @@ class App {
     handleStateChange() {
         this.windowActive = !!vscode.window.state.focused
         this.timer && clearInterval(this.timer)
+
+        let enableFetch = false
         if(this.windowActive){
+            enableFetch = true
+            this.updateGlobalUUID(this.uuid)
+        }else{
+            const uuid = this.getGlobalUUID()
+            enableFetch = uuid === this.uuid
+        }
+
+        if(enableFetch){
             this.fetchData()
             this.timer = setInterval(() => {
                 this.fetchData()
@@ -149,6 +161,20 @@ class App {
     clean(){
         this.timer && clearInterval(this.timer)
         this.deleteAllBar()
+    }
+
+    getGlobalState(key){
+        return this.activateContext.globalState.get(key)
+    }
+    updateGlobalState(key,val){
+        return this.activateContext.globalState.update(key,val)
+    }
+
+    getGlobalUUID(){
+        return this.getGlobalState('binance-price-watch_uuid')
+    }
+    updateGlobalUUID(val){
+        return this.updateGlobalState('binance-price-watch_uuid',val)
     }
     
 }

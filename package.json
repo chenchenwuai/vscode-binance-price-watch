@@ -76,7 +76,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bignumber.js": "^9.1.2",
-    "open": "^6.4.0"
+    "open": "^6.4.0",
+    "uuid": "^9.0.1"
   },
   "repository": {
     "type": "git",
