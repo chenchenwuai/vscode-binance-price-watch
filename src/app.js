@@ -57,13 +57,15 @@ class App {
         this.windowActive = !!vscode.window.state.focused
         this.timer && clearInterval(this.timer)
 
+        // FIXME
         let enableFetch = false
         if(this.windowActive){
             enableFetch = true
-            this.updateGlobalUUID(this.uuid)
+            // this.updateGlobalUUID(this.uuid)
         }else{
-            const uuid = this.getGlobalUUID()
-            enableFetch = uuid === this.uuid
+            enableFetch = false
+            // const uuid = this.getGlobalUUID()
+            // enableFetch = uuid === this.uuid
         }
 
         if(enableFetch){
@@ -107,11 +109,11 @@ class App {
         }
     }
 
-    createStatusBarItem(text = '',tooltip = '') {
+    createStatusBarItem(text = '',rate = '') {
         const barItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left)
-        if(tooltip){
-            barItem.text = `${text}[${tooltip}]`
-            barItem.tooltip = text
+        if(rate){
+            barItem.text = `${text}[${rate}]`
+            barItem.tooltip = rate
         }else{
             barItem.text = text
         }
@@ -121,26 +123,27 @@ class App {
     updateBarItem(symbol,price){
         const mapText = this.coinsMapText[symbol] || symbol.substring(0,2).toLowerCase()
         const text = `${mapText}:${price}`
-        const tooltip = this.getTooltip(symbol,price)
+        const rate = this.getEarnRate(symbol,price)
         if (this.statusBarItems[symbol]) {
-            if(tooltip){
-                this.statusBarItems[symbol].text = `${text}[${tooltip}]`
-                this.statusBarItems[symbol].tooltip = tooltip
+            if(rate){
+                this.statusBarItems[symbol].text = `${text}[${rate}]`
+                this.statusBarItems[symbol].tooltip = rate
             }else{
                 this.statusBarItems[symbol].text = text
             }
         } else {
-            this.statusBarItems[symbol] = this.createStatusBarItem(text,tooltip)
+            this.statusBarItems[symbol] = this.createStatusBarItem(text,rate)
         }
     }
-    getTooltip(symbol, price){
+    getEarnRate(symbol, price){
         const find = this.comparisonPrice.find(i=>i.symbol.toUpperCase() == symbol)
         if(find){
             const priceBN = new BigNumber(price);
             const findPriceBN = new BigNumber(find.price);
-            const diff = priceBN.minus(findPriceBN).abs()
+            const diff = priceBN.minus(findPriceBN)
+            const diffAbs = diff.abs()
             const isEarning = find.direction === 'up' ? diff.isGreaterThan(0) : diff.isLessThan(0);
-            const diffDivFindPrice = diff.dividedBy(findPriceBN);
+            const diffDivFindPrice = diffAbs.dividedBy(findPriceBN);
             const per = diffDivFindPrice.multipliedBy(100).multipliedBy(find.leverage);
             return `${isEarning?'+':'-'}${per.toFixed(2)}%`
         }
