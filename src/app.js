@@ -145,7 +145,12 @@ class App {
             const isEarning = find.direction === 'up' ? diff.isGreaterThan(0) : diff.isLessThan(0);
             const diffDivFindPrice = diffAbs.dividedBy(findPriceBN);
             const per = diffDivFindPrice.multipliedBy(100).multipliedBy(find.leverage);
-            return `${isEarning?'+':'-'}${per.toFixed(2)}%`
+            if(find.cost){
+                const value = per.multipliedBy(+find.cost).multipliedBy(0.01)
+                return `${isEarning?'+':'-'}${value.toFixed(2)}U`
+            }else{
+                return `${isEarning?'+':'-'}${per.toFixed(2)}%`
+            }
         }
         return ''
     }
