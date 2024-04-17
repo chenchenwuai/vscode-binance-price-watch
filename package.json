@@ -29,6 +29,11 @@
           "default": true,
           "description": "Enable display price"
         },
+        "binance-price-watch.updateOnFocus": {
+          "type": "boolean",
+          "default": true,
+          "description": "Update only on focus"
+        },
         "binance-price-watch.symbol": {
           "type": "string",
           "default": "btcusdt",
