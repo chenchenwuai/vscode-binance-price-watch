@@ -8,9 +8,11 @@ class App {
     constructor(context){
         this.uuid = uuidv4()
         this.activateContext = context
-        this.statusBarItems = {}
+        this.statusBarItemsMap = {}
+        this.statusBarItems = []
         this.enable = true
         this.timer = null
+        this.updateOnFocus = true
         this.windowActive = !!vscode.window.state.focused
         this.comparisonPrice = {}
 
@@ -20,19 +22,39 @@ class App {
         context.subscriptions.push(vscode.window.onDidChangeWindowState(() => this.handleStateChange()))
     }
 
+    initItems() {
+        this.coins.forEach((coin) => {
+            const item = this.createStatusBarItem(coin)
+            this.statusBarItemsMap[coin] = item
+            this.statusBarItems.push(item)
+        })
+    }
+
+    deleteAllBar(){
+        this.statusBarItems.forEach((item) => {
+            item.hide()
+            item.dispose()
+        })
+        this.statusBarItems = []
+        this.statusBarItemsMap = {}
+    }
+
+    clean(){
+        this.timer && clearInterval(this.timer)
+        this.deleteAllBar()
+    }
+
     init() {
         this.initConfig()
-
+        this.clean()
         if(!this.enable){
-            this.clean()
             return
         }
+        this.initItems()
 
         if(!this.windowActive){
             return
         }
-
-        this.fetchData()
         this.timer = setInterval(() => {
             this.fetchData()
         }, this.updateInterval)
@@ -41,10 +63,10 @@ class App {
         this.coins = util.getConfigurationCoin()
         this.coinsMapText = util.getConfigurationMapText(this.coins)
         this.comparisonPrice = util.getConfigurationComparisonPrice()
-
         this.baseURL = util.getConfigurationBaseURL()
         this.updateInterval = util.getConfigurationTime()
         this.enable = util.getConfigurationEnable()
+        this.updateOnFocus = util.getConfigurationUpdateOnFocus()
 
         this.API_ADDRESS = `${this.baseURL}`
     }
@@ -59,17 +81,18 @@ class App {
 
         // FIXME
         let enableFetch = false
-        if(this.windowActive){
+        if (!this.updateOnFocus) {
             enableFetch = true
+        } else if (this.windowActive) {
             // this.updateGlobalUUID(this.uuid)
-        }else{
+            enableFetch = true
+        } else {
             enableFetch = false
             // const uuid = this.getGlobalUUID()
             // enableFetch = uuid === this.uuid
         }
 
         if(enableFetch){
-            this.fetchData()
             this.timer = setInterval(() => {
                 this.fetchData()
             }, this.updateInterval)
@@ -88,6 +111,10 @@ class App {
     handleData(data){
         if(data){
             if(Array.isArray(data)){
+                var coins = this.coins
+                data.sort((a, b) => {
+                    return coins.indexOf(a) - coins.indexOf(b)
+                })
                 data.forEach(i=>{
                     try {
                         const {symbol, price} = i
@@ -96,7 +123,7 @@ class App {
                         }
                     } catch (error) {
                         console.error(error)
-                    } 
+                    }
                 })
             }else if(typeof data === 'object'){
                 try {
@@ -124,15 +151,13 @@ class App {
         const mapText = this.coinsMapText[symbol] || symbol.substring(0,2).toLowerCase()
         const text = `${mapText}:${price}`
         const rate = this.getEarnRate(symbol,price)
-        if (this.statusBarItems[symbol]) {
+        if (this.statusBarItemsMap[symbol]) {
             if(rate){
-                this.statusBarItems[symbol].text = `${text}[${rate}]`
-                this.statusBarItems[symbol].tooltip = rate
+                this.statusBarItemsMap[symbol].text = `${text}[${rate}]`
+                this.statusBarItemsMap[symbol].tooltip = rate
             }else{
-                this.statusBarItems[symbol].text = text
+                this.statusBarItemsMap[symbol].text = text
             }
-        } else {
-            this.statusBarItems[symbol] = this.createStatusBarItem(text,rate)
         }
     }
     getEarnRate(symbol, price){
@@ -153,22 +178,6 @@ class App {
             }
         }
         return ''
-    }
-    deleteBatItem(symbol){
-        if(this.statusBarItems[symbol]){
-            this.statusBarItems[symbol].hide()
-            this.statusBarItems[symbol].dispose()
-            delete this.statusBarItems[symbol]
-        }
-    }
-    deleteAllBar(){
-        Object.keys(this.statusBarItems).forEach((item) => {
-            this.deleteBatItem(item)
-        })
-    }
-    clean(){
-        this.timer && clearInterval(this.timer)
-        this.deleteAllBar()
     }
 
     getGlobalState(key){
