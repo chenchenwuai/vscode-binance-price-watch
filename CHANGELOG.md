@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/chenchenwuai/vscode-binance-price-watch/compare/v1.6.0...v1.7.0) (2024-04-17)
+
+
+### Features
+
+* 增加是否只在窗口激活时更新数据；修复状态栏顺序, 按交易对顺序展示数据 ([5054b93](https://github.com/chenchenwuai/vscode-binance-price-watch/commit/5054b93ace44319dec9c85fb2b0682cd22fb8c7b))
+
 ## [1.6.0](https://github.com/chenchenwuai/vscode-binance-price-watch/compare/v1.5.3...v1.6.0) (2024-04-01)
 
 
