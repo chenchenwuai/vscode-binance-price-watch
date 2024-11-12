@@ -2,7 +2,7 @@
   "name": "binance-price-watch",
   "displayName": "binance-price-watch",
   "description": "Visual Studio Code extension for display coin contract price via binance API",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "publisher": "chenwuai",
   "keywords": [
     "btc",
@@ -33,7 +33,7 @@
           "type": "array",
           "default": [
             {
-              "symbol":"btcusdt",
+              "symbol": "btcusdt",
               "precision": 2,
               "buyPrice": 0,
               "direction": "",
