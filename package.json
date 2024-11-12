@@ -2,7 +2,7 @@
   "name": "binance-price-watch",
   "displayName": "binance-price-watch",
   "description": "Visual Studio Code extension for display coin contract price via binance API",
-  "version": "1.7.0",
+  "version": "2.0.0",
   "publisher": "chenwuai",
   "keywords": [
     "btc",
@@ -29,38 +29,39 @@
           "default": true,
           "description": "Enable display price"
         },
+        "binance-price-watch.symbols": {
+          "type": "array",
+          "default": [
+            {
+              "symbol":"btcusdt",
+              "precision": 2,
+              "buyPrice": 0,
+              "direction": "",
+              "leverage": 0,
+              "cost": 0
+            }
+          ],
+          "items": {
+            "type": "object"
+          },
+          "description": "Configuring coins that need to monitor. buyPrice,direction,leverage,cost can not be set"
+        },
+        "binance-price-watch.updateInterval": {
+          "type": "number",
+          "default": 1500,
+          "minimum": 1000,
+          "description": "Configuring polling requests the latest data time interval, Unit: milliseconds"
+        },
+        "binance-price-watch.api": {
+          "type": "string",
+          "default": "https://api4.binance.com/api/v3/ticker/price",
+          "format": "uri",
+          "description": "Configuring contract base API, (try not to modify)"
+        },
         "binance-price-watch.updateOnFocus": {
           "type": "boolean",
           "default": true,
           "description": "Update only on focus"
-        },
-        "binance-price-watch.symbol": {
-          "type": "string",
-          "default": "btcusdt",
-          "minLength": 1,
-          "description": "Configuring coin that need to monitor"
-        },
-        "binance-price-watch.symbolText": {
-          "type": "string",
-          "default": "btc",
-          "description": "Abbreviation"
-        },
-        "binance-price-watch.updateInterval": {
-          "type": "number",
-          "default": 3000,
-          "minimum": 1000,
-          "description": "Configuring polling requests the latest data time interval, Unit: milliseconds"
-        },
-        "binance-price-watch.url": {
-          "type": "string",
-          "default": "https://fapi.binance.com/fapi/v1/ticker/price",
-          "format": "uri",
-          "description": "Configuring contract base API, (try not to modify)"
-        },
-        "binance-price-watch.comparisonPrice": {
-          "type": "string",
-          "default": "",
-          "description": "Calculate the real-time price and what the profit is for the price you set。\n(direction:up|down)\nexample: \n[{\"symbol\":\"btcusdt\",\"price\":60000,\"leverage\":25,\"direction\":\"up\"}]\n"
         }
       }
     }
@@ -80,9 +81,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "bignumber.js": "^9.1.2",
-    "open": "^6.4.0",
-    "uuid": "^9.0.1"
+    "bignumber.js": "^9.1.2"
   },
   "repository": {
     "type": "git",
