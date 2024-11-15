@@ -5,6 +5,7 @@ const StatusBar = require('./statusBar')
 
 class App {
     constructor(context){
+        this.isFirstLoad = true
         this.activateContext = context
         this.enable = false
         this.updateOnFocus = true
@@ -13,7 +14,7 @@ class App {
         this.coins = new Coins()
         this.coins.gotPrice = this.gotPrice.bind(this)
 
-        this.statusBar = new StatusBar()
+        this.statusBar = new StatusBar(context)
         this.statusBar.init(this.coins.list)
 
         this.init()
@@ -28,6 +29,7 @@ class App {
             return
         }
 
+        this.coins.initConfig()
         this.coins.startGetPrice()
     }
 
@@ -48,6 +50,10 @@ class App {
     }
 
     handleConfigChange() {
+        if(this.isFirstLoad){
+            this.isFirstLoad = false
+            return
+        }
         this.clean()
         this.init()
     }
