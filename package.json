@@ -27,24 +27,35 @@
         "binance-price-watch.enable": {
           "type": "boolean",
           "default": true,
-          "description": "Enable display price"
+          "description": "Open the price display"
         },
         "binance-price-watch.symbols": {
-          "type": "array",
-          "default": [
+          "anyOf": [
             {
-              "symbol": "btcusdt",
-              "precision": 2,
-              "buyPrice": 0,
-              "direction": "",
-              "leverage": 0,
-              "cost": 0
+              "type": "array",
+              "default": [
+                {
+                  "symbol": "btcusdt",
+                  "precision": 2
+                }
+              ],
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "string",
+              "default": "btcusdt"
             }
           ],
-          "items": {
-            "type": "object"
-          },
-          "description": "Configuring coins that need to monitor. buyPrice,direction,leverage,cost can not be set"
+          "description": "Please refer to the plugin home page description to configure."
         },
         "binance-price-watch.updateInterval": {
           "type": "number",
