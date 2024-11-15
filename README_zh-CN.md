@@ -27,7 +27,7 @@
 
 安装扩展后，您可以通过在 `settings.json` 文件中添加以下设置来配置它：
 
-```json
+```js
 {
   "binance-price-watch.enable": true,
   "binance-price-watch.symbols": [
