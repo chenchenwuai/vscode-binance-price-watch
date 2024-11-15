@@ -25,7 +25,7 @@ It's designed for developers and traders who want to keep track of cryptocurrenc
 ## Configuration
 After installing the extension, you can configure it by adding the following settings in your settings.json
 
-```json
+```js
 {
   "binance-price-watch.enable": true,  
   "binance-price-watch.symbols": [
