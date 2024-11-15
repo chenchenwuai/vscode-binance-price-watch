@@ -97,7 +97,7 @@ class Coins {
   getText(coin){
     let text = ''
     let tooltip = ''
-    if(coin.cost && coin.buyPrice && coin.direction && coin.leverage){
+    if(coin.buyPrice && coin.direction && coin.leverage){
       let info = this.getEarnInfo(coin)
       text = `${coin.abbr}:${coin.showPrice}[${info.percent}]`
       if(info.amount){
