@@ -2,7 +2,7 @@
 
 [Visual Studio Code Marketplace page](https://marketplace.visualstudio.com/items?itemName=chenwuai.binance-price-watch)
 
-[中文](./README_zh-CN.md)
+[中文文档](./README_zh-CN.md)
 
 ## Description
 binance-price-watch is a Visual Studio Code extension that displays cryptocurrency contract prices using the Binance API.

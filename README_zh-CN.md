@@ -2,7 +2,7 @@
 
 [插件市场链接](https://marketplace.visualstudio.com/items?itemName=chenwuai.binance-price-watch)
 
-[英文](./README.md)
+[English Documentation](./README.md)
 
 ## 描述
 
