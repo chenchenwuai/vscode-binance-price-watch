@@ -21,20 +21,32 @@ class Coins {
   // 获取交易对
   getConfigCoins(){
     let list = getConfiguration(SYMBOLS_KEY)
+    if(typeof list === 'string'){
+      list = list.split(',')
+    }
+    if(Array.isArray(list)){
+      list = list.map(i=>{
+        if(typeof i === 'object'){
+          return i
+        }else{
+          return { symbol: i }
+        }
+      })
+    }
     list = list.map(i=>{
       return {
         symbol: i.symbol ? i.symbol.toUpperCase() : null, // 交易对 "btcusdt" 表示 btc + usdt
         abbr: i.abbr || i.symbol.replace('usdt',''), // 交易对缩写 btcusdt 会默认处理为 btc
-        precision: Number(i.precision)|| -1, // 小数位数，如果小数位数大于此值后面位数会被过滤掉，默认不处理
+        precision:  typeof i.precision !== 'undefined' ? Number(i.precision): -1, // 小数位数，如果小数位数大于此值后面位数会被过滤掉，默认不处理
         price: 0, // 价格
 
         buyPrice: i.buyPrice || 0,
         direction: i.direction || 'up', // 方向 up | down，默认up
-        leverage: Number(i.leverage) || 10, // 杠杆
+        leverage: Number(i.leverage) || 0, // 杠杆
         cost: Number(i.cost) || 0 // 成本(usdt)
       }
     })
-    this.list = list.filter(i=>i.symbol)
+    this.list = list.filter(i=>i.symbol && /USDT$/.test(i.symbol))
   }
 
   // 开启获取price
@@ -69,10 +81,10 @@ class Coins {
   handlePrice(prices){
     this.list.forEach(i=>{
       if(typeof prices[i.symbol] !== 'undefined'){
+        i.price = prices[i.symbol]
+        i.showPrice = prices[i.symbol]
         if(i.precision > -1){
-          i.price = decimalPlaces(prices[i.symbol], i.precision)
-        }else{
-          i.price = prices[i.symbol]
+          i.showPrice = decimalPlaces(i.price, i.precision)
         }
         let info = this.getText(i)
         i.text = info.text
@@ -87,12 +99,12 @@ class Coins {
     let tooltip = ''
     if(coin.cost && coin.buyPrice && coin.direction && coin.leverage){
       let info = this.getEarnInfo(coin)
-      text = `${coin.abbr}:${coin.price}[${info.percent}]`
+      text = `${coin.abbr}:${coin.showPrice}[${info.percent}]`
       if(info.amount){
         tooltip = info.amount
       }
     }else{
-      text = coin.abbr + ':'+ coin.price
+      text = coin.abbr + ':'+ coin.showPrice
     }
     return { text, tooltip }
   }

@@ -50,3 +50,29 @@ Search for **binance-price-watch** in VS Code extensions.
   // 只在编辑器焦点时更新数据
   "binance-contract-price.updateOnFocus": true
 ```
+
+
+## Reference Config Code
+
+```json
+{
+  "binance-contract-price.symbols": "btcusdt",
+  "binance-contract-price.symbols": "btcusdt,ethusdt",
+  "binance-contract-price.symbols": ["btcusdt","ethusdt"],
+  "binance-contract-price.symbols": [
+    "ethusdt",
+    {
+      "symbol": "dogeusdt",
+    },
+    {
+      "symbol": "btcusdt", // 要监控的币，必填
+      "abbr": "btc", // 币的缩写，默认为去掉usdt的部分，非必填
+      "precision": 2, // 保留小数位，非必填
+      "buyPrice": 0, // 开单价格，非必填
+      "direction": "up", // 开多填 'up'， 开空填 'down'，非必填
+      "leverage": 0, // 开多少倍，非必填
+      "cost": 0 // 开了多少usdt，非必填
+    }
+  ]
+}
+```

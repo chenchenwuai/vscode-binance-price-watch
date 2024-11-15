@@ -16,7 +16,13 @@ function getConfiguration(key = ''){
 }
 
 function decimalPlaces(number, decimal){
-  return Number(new BigNumber(number).decimalPlaces(decimal).toString())
+  let numStr = ''
+  if(!decimal || decimal <= 0){
+    numStr = new BigNumber(number).integerValue().toString()
+  }else{
+    numStr = new BigNumber(number).toFixed(decimal)
+  }
+  return numStr
 }
 
 module.exports = {
