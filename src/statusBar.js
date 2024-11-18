@@ -68,21 +68,15 @@ class StatusBars {
 function openSettings(){
   // 获取用户设置的路径
   let settingsPath;
-        
-  // 检查工作区是否打开
-  if (vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0) {
-      // 获取工作区的设置路径
-      settingsPath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, '.vscode', 'settings.json');
+  
+  // 获取用户全局设置路径（根据操作系统）
+  const os = process.platform;
+  if (os === 'win32') {
+      settingsPath = path.join(process.env.APPDATA, 'Code', 'User', 'settings.json');
+  } else if (os === 'darwin') {
+      settingsPath = path.join(process.env.HOME, 'Library', 'Application Support', 'Code', 'User', 'settings.json');
   } else {
-      // 获取用户全局设置路径（根据操作系统）
-      const os = process.platform;
-      if (os === 'win32') {
-          settingsPath = path.join(process.env.APPDATA, 'Code', 'User', 'settings.json');
-      } else if (os === 'darwin') {
-          settingsPath = path.join(process.env.HOME, 'Library', 'Application Support', 'Code', 'User', 'settings.json');
-      } else {
-          settingsPath = path.join(process.env.HOME, '.config', 'Code', 'User', 'settings.json');
-      }
+      settingsPath = path.join(process.env.HOME, '.config', 'Code', 'User', 'settings.json');
   }
 
   // 检查文件是否存在
