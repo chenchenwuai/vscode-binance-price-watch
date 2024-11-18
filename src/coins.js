@@ -42,8 +42,9 @@ class Coins {
 
         buyPrice: i.buyPrice || 0,
         direction: i.direction || 'up', // 方向 up | down，默认up
-        leverage: Number(i.leverage) || 0, // 杠杆
-        cost: Number(i.cost) || 0 // 成本(usdt)
+        leverage: Number(i.leverage) || 1, // 杠杆
+        cost: Number(i.cost) || 0, // 成本(usdt)
+        amount: Number(i.amount) || 0 // 币数量
       }
     })
     this.list = list.filter(i=>i.symbol && /USDT$/.test(i.symbol))
@@ -100,8 +101,8 @@ class Coins {
     if(coin.buyPrice && coin.direction && coin.leverage){
       let info = this.getEarnInfo(coin)
       text = `${coin.abbr}:${coin.showPrice}[${info.percent}]`
-      if(info.amount){
-        tooltip = info.amount
+      if(info.usdt){
+        tooltip = info.usdt
       }
     }else{
       text = coin.abbr + ':'+ coin.showPrice
@@ -110,7 +111,7 @@ class Coins {
   }
 
   getEarnInfo(coin){
-    let { price, buyPrice, direction, leverage, cost } = coin
+    let { price, buyPrice, direction, leverage, cost, amount } = coin
 
     const priceBN = new BigNumber(price)
     const buyPriceBN = new BigNumber(buyPrice)
@@ -121,15 +122,16 @@ class Coins {
     const per = diffDivFindPrice.multipliedBy(100).multipliedBy(leverage)
 
     const percent = `${isEarning?'+':'-'}${per.toFixed(2)}%`
-    let amount = ''
+    let usdt = ''
     if(cost){
         const value = per.multipliedBy(+cost).multipliedBy(0.01)
-        amount = `${isEarning?'+':'-'}${value.toFixed(2)}U`
+        usdt = `${isEarning?'+':'-'}${value.toFixed(2)}U`
     }
-    return {
-      percent: percent,
-      amount: amount
+    if(amount){
+        const value = diffAbs.multipliedBy(+amount)
+        usdt = `${isEarning?'+':'-'}${value.toFixed(2)}U`
     }
+    return { percent, usdt }
   }
 
   gotPrice(list){}
