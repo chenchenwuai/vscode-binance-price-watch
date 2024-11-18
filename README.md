@@ -37,6 +37,7 @@ After installing the extension, you can configure it by adding the following set
       "direction": "up",   // Optional: Opening direction, 'up' for long, 'down' for short
       "leverage": 0,       // Optional: Leverage multiplier
       "cost": 0            // Optional: Cost in USDT. Profit is shown when hovering over the price. If not set, only profit rate will be displayed.
+      "amount": 0          // Optional: Amount of the currency(Note: 'amount' takes priority over 'cost').
     }
   ],
   "binance-price-watch.updateInterval": 1500,  // Optional: Update interval in milliseconds

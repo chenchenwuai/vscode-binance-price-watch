@@ -39,6 +39,7 @@
       "direction": "up",   // 可选：开单方向，'up' 表示开多，'down' 表示开空
       "leverage": 0,       // 可选：杠杆倍数
       "cost": 0            // 可选：成本（以 USDT 计）。如果不设置 cost，则只显示收益率，鼠标放在价格上才显示收益。
+      "amount": 0          // 可选：币的数量（提示： amount 的优先级高于 cost）。
     }
   ],
   "binance-price-watch.updateInterval": 1500, // 可选：更新间隔，单位：毫秒
