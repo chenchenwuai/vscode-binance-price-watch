@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/chenchenwuai/vscode-binance-price-watch/compare/v2.1.1...v2.2.0) (2024-11-18)
+
+
+### Features
+
+* add amount property ([6fed7a5](https://github.com/chenchenwuai/vscode-binance-price-watch/commit/6fed7a5910536d6767fd6a4818d2a1bc3ed8a4a9))
+
+
+### Bug Fixes
+
+* 修复在工作区无法打开配置文件的bug ([8d83dac](https://github.com/chenchenwuai/vscode-binance-price-watch/commit/8d83dac2fa232117608e0172b2b81e5fb822883f))
+
 ### [2.1.1](https://github.com/chenchenwuai/vscode-binance-price-watch/compare/v2.1.0...v2.1.1) (2024-11-15)
 
 ## [2.1.0](https://github.com/chenchenwuai/vscode-binance-price-watch/compare/v2.0.1...v2.1.0) (2024-11-15)
