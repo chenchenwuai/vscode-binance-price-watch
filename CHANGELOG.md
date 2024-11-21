@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.1](https://github.com/chenchenwuai/vscode-binance-price-watch/compare/v2.2.0...v2.2.1) (2024-11-21)
+
+
+### Bug Fixes
+
+* Fix configuration not updating when editor is active ([2fad73e](https://github.com/chenchenwuai/vscode-binance-price-watch/commit/2fad73e9fd6c08660e20f51c3fb6fe39f269deef))
+
 ## [2.2.0](https://github.com/chenchenwuai/vscode-binance-price-watch/compare/v2.1.1...v2.2.0) (2024-11-18)
 
 
