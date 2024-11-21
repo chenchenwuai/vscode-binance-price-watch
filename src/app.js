@@ -70,6 +70,7 @@ class App {
         }
 
         if(enableFetch){
+            this.coins.initConfig()
             this.coins.startGetPrice()
         }
     }
