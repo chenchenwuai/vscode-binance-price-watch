@@ -73,6 +73,11 @@
           "type": "boolean",
           "default": true,
           "description": "Update only on focus"
+        },
+        "binance-price-watch.showEyeButton": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the eye button to hide/show coin prices"
         }
       }
     }

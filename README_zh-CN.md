@@ -15,6 +15,8 @@
 - **可自定义监控**：配置需要监控的币种，并设置价格显示精度。
 - **轮询间隔**：设置插件获取最新价格数据的频率。
 - **聚焦更新**：可选只在编辑器聚焦时更新数据。
+- **快速配置**：通过 VSCode 命令面板快速访问和修改设置。
+- **隐藏/显示币种**：通过点击眼睛图标临时隐藏状态栏中的特定币种。
 
 ## 安装
 
@@ -38,13 +40,14 @@
       "buyPrice": 0,       // 可选：开单价格
       "direction": "up",   // 可选：开单方向，'up' 表示开多，'down' 表示开空
       "leverage": 0,       // 可选：杠杆倍数
-      "cost": 0            // 可选：成本（以 USDT 计）。如果不设置 cost，则只显示收益率，鼠标放在价格上才显示收益。
-      "amount": 0          // 可选：币的数量（提示： amount 的优先级高于 cost）。
+      "cost": 0,          // 可选：成本（以 USDT 计）。如果不设置 cost，则只显示收益率，鼠标放在价格上才显示收益。
+      "amount": 0         // 可选：币的数量（提示：amount 的优先级高于 cost）。
     }
   ],
   "binance-price-watch.updateInterval": 1500, // 可选：更新间隔，单位：毫秒
   "binance-price-watch.api": "https://api4.binance.com/api/v3/ticker/price", // 可选：API URL
-  "binance-price-watch.updateOnFocus": true     // 可选：只在编辑器聚焦时更新
+  "binance-price-watch.updateOnFocus": true,  // 可选：只在编辑器聚焦时更新
+  "binance-price-watch.showEyeButton": true   // 可选：显示/隐藏用于切换币种可见性的眼睛按钮
 }
 ```
 
@@ -75,6 +78,10 @@
 ## 使用
 
 配置完成后，插件将在状态栏中显示指定加密货币的价格。您可以监控多个交易对，并根据配置的开单价格实时计算并显示收益及收益率。**鼠标放在价格上时，将显示收益**。
+
+您可以通过 VSCode 命令面板（Cmd/Ctrl + Shift + P）输入 "Binance Price Watch" 快速访问和修改配置。
+
+状态栏中的每个币种显示都有一个眼睛图标，您可以通过点击该图标临时隐藏/显示特定币种。这在您想要专注于特定币种而不修改配置时非常有用。
 
 ## 许可证
 
