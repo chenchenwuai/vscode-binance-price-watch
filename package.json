@@ -2,7 +2,7 @@
   "name": "binance-price-watch",
   "displayName": "binance-price-watch",
   "description": "Visual Studio Code extension for display coin contract price via binance API",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "publisher": "chenwuai",
   "keywords": [
     "btc",
@@ -85,7 +85,7 @@
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "node ./node_modules/vscode/bin/test",
-    "release": "standard-version"
+    "release": "standard-version && git push --follow-tags origin master"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.42",
