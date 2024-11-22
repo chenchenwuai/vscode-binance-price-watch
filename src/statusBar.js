@@ -6,10 +6,22 @@ class StatusBars {
   constructor(context){
     this.activateContext = context
     this.settingBar = null
+    this.eyeBar = null
+    this.isHidden = false
     this.barItemsMap = {}
     this.barItems = []
 
     this.createSettingBarItem()
+    this.createEyeBarItem()
+
+    // Listen for configuration changes
+    context.subscriptions.push(
+      vscode.workspace.onDidChangeConfiguration(e => {
+        if (e.affectsConfiguration('binance-price-watch.showEyeButton')) {
+          this.createEyeBarItem();
+        }
+      })
+    );
   }
 
   init(list = []){
@@ -60,8 +72,51 @@ class StatusBars {
     settingBar.show()
     settingBar.command = 'extension.openCoinsSettings';
 
+    this.settingBar = settingBar
     this.activateContext.subscriptions.push(settingBar)
     this.activateContext.subscriptions.push(vscode.commands.registerCommand(settingBar.command, () => openSettings()))
+  }
+
+  createEyeBarItem(){
+    // Check if eye button is enabled in settings
+    const config = vscode.workspace.getConfiguration('binance-price-watch');
+    const showEyeButton = config.get('showEyeButton');
+    
+    if (!showEyeButton) {
+      if (this.eyeBar) {
+        this.eyeBar.hide();
+        this.eyeBar.dispose();
+        this.eyeBar = null;
+      }
+      return;
+    }
+
+    if(this.eyeBar) return
+    this.isHidden = false
+    const eyeBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left)
+    eyeBar.text = '$(eye-closed)'
+    eyeBar.tooltip = 'Hide Coins'
+    eyeBar.show()
+    eyeBar.command = 'extension.hiddenCoins';
+
+    this.eyeBar = eyeBar
+    this.activateContext.subscriptions.push(eyeBar)
+    this.activateContext.subscriptions.push(vscode.commands.registerCommand(eyeBar.command, () => this.hiddenCoins()))
+  }
+
+  hiddenCoins() {
+    this.isHidden = !this.isHidden
+    this.eyeBar.text = this.isHidden ? '$(eye)' : '$(eye-closed)'
+    this.eyeBar.tooltip = this.isHidden ? 'Show Coins' : 'Hide Coins'
+    
+    // Hide or show all coin status bars
+    Object.values(this.barItemsMap).forEach(barItem => {
+      if (this.isHidden) {
+        barItem.hide();
+      } else {
+        barItem.show();
+      }
+    });
   }
 }
 
