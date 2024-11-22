@@ -85,6 +85,7 @@
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "node ./node_modules/vscode/bin/test",
+    "package": "vsce package",
     "version": "standard-version && git push --follow-tags origin master",
     "publish": "vsce publish",
     "release": "standard-version && git push origin master --tags && vsce publish"
