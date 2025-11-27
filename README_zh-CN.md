@@ -45,7 +45,7 @@
     }
   ],
   "binance-price-watch.updateInterval": 1500, // 可选：更新间隔，单位：毫秒
-  "binance-price-watch.api": "https://api4.binance.com/api/v3/ticker/price", // 可选：API URL
+  "binance-price-watch.api": "https://fapi.binance.com/fapi/v1/ticker/price", // 可选：API URL
   "binance-price-watch.updateOnFocus": true,  // 可选：只在编辑器聚焦时更新
   "binance-price-watch.showEyeButton": true   // 可选：显示/隐藏用于切换币种可见性的眼睛按钮
 }

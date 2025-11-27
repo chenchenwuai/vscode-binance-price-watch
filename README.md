@@ -43,7 +43,7 @@ After installing the extension, you can configure it by adding the following set
     }
   ],
   "binance-price-watch.updateInterval": 1500,  // Optional: Update interval in milliseconds
-  "binance-price-watch.api": "https://api4.binance.com/api/v3/ticker/price", // Optional: API URL
+  "binance-price-watch.api": "https://fapi.binance.com/fapi/v1/ticker/price", // Optional: API URL
   "binance-price-watch.updateOnFocus": true,   // Optional: Update only when editor is focused
   "binance-price-watch.showEyeButton": true    // Optional: Show/hide the eye button for toggling coin visibility
 }
