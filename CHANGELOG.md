@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 2.3.0 (2025-11-27)
+
+
+### Features
+
+* add amount property ([216ba50](https://github.com/chenchenwuai/vscode-binance-price-watch/commit/216ba50533e78b9b0f83b4ed30105db4a1c5226f))
+* Add comparisonPrice configuration ([88e7ae0](https://github.com/chenchenwuai/vscode-binance-price-watch/commit/88e7ae0d6b083432b1a06a3fa362949b1e573d67))
+* Add cost configuration ([90fc386](https://github.com/chenchenwuai/vscode-binance-price-watch/commit/90fc386ca100f333e49248add1c58979f1c88583))
+* Added a shortcut to open configuration. fix bug. ([de2093a](https://github.com/chenchenwuai/vscode-binance-price-watch/commit/de2093afe395391fc26a3028fbe500ee7a14d2dd))
+* Added an option to update data only when the window is active; Fixed the status bar order to display data sorted by trading pair. ([7430583](https://github.com/chenchenwuai/vscode-binance-price-watch/commit/7430583cd95e43bb74105097409c243022510aab))
+* Added the ability to pause API requests when the editor is inactive ([0d143ce](https://github.com/chenchenwuai/vscode-binance-price-watch/commit/0d143ce6091db9a2d3ce6fa366635101992a3132))
+
+
+### Bug Fixes
+
+* -- bug ([a790201](https://github.com/chenchenwuai/vscode-binance-price-watch/commit/a790201fcc2b72b1253fe7958cfe53ee5af5526b))
+* Changed the API address to the contract API address. ([b241283](https://github.com/chenchenwuai/vscode-binance-price-watch/commit/b241283bf44828569ebbbf19bb9cabf49af4c603))
+* fix bug ([d7b45df](https://github.com/chenchenwuai/vscode-binance-price-watch/commit/d7b45df26ea7597f75ec1bbca507552bfc50651e))
+* Fix configuration not updating when editor is active ([7f64dab](https://github.com/chenchenwuai/vscode-binance-price-watch/commit/7f64dab258990f7b9d139ed29f683ff9ff20ab59))
+* fix rate error ([c4ee88b](https://github.com/chenchenwuai/vscode-binance-price-watch/commit/c4ee88b8a24ff412c2cf8ee17a0437147f0892d9))
+
 ### [2.2.4](https://github.com/chenchenwuai/vscode-binance-price-watch/compare/v2.2.3...v2.2.4) (2024-11-22)
 
 ### [2.2.3](https://github.com/chenchenwuai/vscode-binance-price-watch/compare/v2.2.2...v2.2.3) (2024-11-22)
